@@ -5,3 +5,4 @@ langgraph
 PyMuPDF
 reportlab
 dotenv
+openai
