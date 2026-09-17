@@ -1,0 +1,27 @@
+# Python
+__pycache__/
+*.py[cod]
+*.pyo
+
+# Virtual environments
+.venv/
+venv/
+env/
+f/
+.f/
+
+# Secrets
+.env
+.env.*
+
+# Generated files
+# Keep the sample PDF for the assignment
+# generated_question_paper.pdf
+
+# IDE
+.vscode/
+.idea/
+
+# OS
+.DS_Store
+Thumbs.db

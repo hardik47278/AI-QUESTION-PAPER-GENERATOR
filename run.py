@@ -6,6 +6,7 @@ Usage:
 """
 
 from pathlib import Path
+
 from pipeline import build_graph
 
 
@@ -22,19 +23,29 @@ def main():
     project_dir = Path(__file__).resolve().parent
 
     question_bank_path = (
-        project_dir / "agents" / "question_bank.json"
+        project_dir
+        / "agents"
+        / "question_bank.json"
     )
 
     initial_state = {
+
         "teacher_request": (
-            "Create a 40 mark paper covering Algebra and Geometry, "
-            "mostly medium difficulty, mix of MCQ and short answer questions."
+            "Create a 40 mark paper covering "
+            "Algebra and Geometry, mostly medium "
+            "difficulty, mix of MCQ and short answer "
+            "questions."
         ),
-        "question_bank_path": str(question_bank_path),
+
+        "question_bank_path":
+            str(question_bank_path),
+
+        "retry_count":
+            0,
     }
 
     print(
-        "QUESTION BANK:",
+        "\nQUESTION BANK:",
         question_bank_path
     )
 
@@ -43,32 +54,42 @@ def main():
         question_bank_path.exists()
     )
 
+    print(
+        "\nSTARTING QUESTION PAPER PIPELINE...\n"
+    )
+
     result = graph.invoke(
         initial_state,
         config
     )
 
     print(
-        "status:",
+        "\n=============================="
+    )
+
+    print(
+        "FINAL STATUS:",
         result.get("status")
     )
 
     print(
-        "pdf_path:",
+        "PDF PATH:",
         result.get("pdf_path")
     )
 
     print(
-        "error:",
+        "RETRY COUNT:",
+        result.get("retry_count", 0)
+    )
+
+    print(
+        "ERROR:",
         result.get("error")
     )
 
-    if "__interrupt__" in result:
-
-        print(
-            "STALLED ON INTERRUPT:",
-            result["__interrupt__"]
-        )
+    print(
+        "=============================="
+    )
 
 
 if __name__ == "__main__":
